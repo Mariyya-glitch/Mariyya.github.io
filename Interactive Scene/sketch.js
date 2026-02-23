@@ -26,6 +26,9 @@ function draw() {
   } else if (currentBack === 3){
     background('#2A4252')
   }
+  noStroke();
+  rect(1, 750, 5000, 500)
+  igloo();
 }
 
 function mouseClicked() {
@@ -38,4 +41,9 @@ function mouseClicked() {
   } else if (currentBack === 3){
     currentBack = 0
   }
+}
+
+function igloo(){
+  circle(centerX, centerY+200, 350)
+  square(centerX+1, centerY+150, 230)
 }

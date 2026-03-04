@@ -2,7 +2,6 @@
 // Mariyya
 // 2/11/2026
 //
-// - describe what you did to take this project "above and beyond"
 
 let centerX;
 let centerY;
@@ -29,21 +28,30 @@ function draw() {
   noStroke();
   rect(1, 750, 5000, 500)
   igloo();
+  cloud();
 }
 
-function mouseClicked() {
-  if (currentBack === 0){
-    currentBack = 1
-  } else if (currentBack === 1){
-    currentBack = 2
-  } else if (currentBack === 2){
-    currentBack = 3
-  } else if (currentBack === 3){
-    currentBack = 0
-  }
+function mousePressed() {
+  if(mouseButton === CENTER){}
+    if (currentBack === 0){
+      currentBack = 1
+    } else if (currentBack === 1){
+      currentBack = 2
+    } else if (currentBack === 2){
+      currentBack = 3
+    } else if (currentBack === 3){
+      currentBack = 0
+    }
 }
 
 function igloo(){
   circle(centerX, centerY+200, 350)
   square(centerX+1, centerY+150, 230)
 }
+
+function cloud(){
+  circle(mouseX, centerY - 200, 100)
+  circle(mouseX + 50, centerY + 10 - 200, 70)
+  circle(mouseX - 50, centerY + 10 - 200, 70)
+}
+

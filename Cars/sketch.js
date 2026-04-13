@@ -23,5 +23,8 @@ function drawRoad(){
 function dottedLine(){
   let dotX = 0;
   fill(255, 204, 0);
-  rect(dotX, windowHeight/2 + 15, 50, -5);
+  while(dotX < 1000){
+    rect(dotX, windowHeight/2 + 15, 50, -5);
+    dotX += 20;
+  }
 }

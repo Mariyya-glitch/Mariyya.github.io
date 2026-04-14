@@ -12,26 +12,36 @@ function setup() {
 }
 
 function draw() {
-  noiseTime = 8;
+  noiseTime = 8 + frameCount/100;
   background(220);
   generateTerrain();
-  drawFlag();
 }
 
 function generateTerrain(){
+  fill(255);
   //using a loop, construct a number
   //of side by side rectangles of 
   //random height, to be 2D terrain
+  let highest = 0;
+  let highestX = 0;
+  let average = 
   for(let x = 0; x < width; x+=rectWidth){
     //generate random() (negative) height
     //eventually replace this with using noise()
     // let rectHeight = random(0, height*0.75);
     let rectHeight = noise(noiseTime);
     rectHeight = map(rectHeight, 0, 1, 0, height*0.85);
+    if (rectHeight > highest){
+      highest = rectHeight;
+      highestX = x;
+    }
     rect(x,height,rectWidth,-rectHeight);
     
     noiseTime += noiseSpeed;
   }
+  drawFlag(highestX, height - highest);
+  fill(0);
+  line(0, height - average, width);
 }
 
 function keyPressed(){
@@ -43,11 +53,12 @@ function keyPressed(){
   }
   else if (keyCode === RIGHT_ARROW){
     rectWidth += 1;
-    print("a");
   }
   generateTerrain();
 }
 
 function drawFlag(x,y){
-  rect(50,-50,5,50);
+  fill(0);
+  rect(x, y, 3, -50);
+  triangle(x + 3, y - 50, x + 3, y - 30, x + 20, y - 35)
 }

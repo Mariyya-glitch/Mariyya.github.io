@@ -44,6 +44,11 @@ class vehicle{
   
   //class methods
   createVehicle(){
-    this.vehicle.push(newVehicle());
+    this.vehicle.push();
+  }
+
+  display(){
+    fill(this.c);
+    rect(this.x, this.y, 10, 5);
   }
 }

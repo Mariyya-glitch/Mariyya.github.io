@@ -6,7 +6,6 @@
 // grid is 6 x 5
 
 
-
 let grid = [
   [0,   0,   0,   255,  0,  255],
   [255, 0, 255,   0,    255,  0],
@@ -20,6 +19,12 @@ let tileSize = 60;
 
 function setup() {
   createCanvas(cols*tileSize, rows*tileSize);
+  //randomize grid
+  for(let y = 0; y < rows; y++){ 
+    for(let x = 0; x < cols; x++){ 
+      grid[y][x] = int(random(2))*255;
+    }
+  }
 }
 
 function draw() {
@@ -36,6 +41,21 @@ function flip(x,y){
   else grid[y][x] = 0;
 }
 
+function overlay(){
+
+}
+let pattern = 0;
+function keyPressed(){
+  if (key === " "){
+    if (pattern === 0){
+      pattern = 1;
+    }
+    else if (pattern === 1){
+      pattern = 0;
+    }
+  }
+}
+
 function mousePressed(){
 //only do a flip if mouse if on canvas
   if(mouseX < width && mouseY < height){
@@ -50,10 +70,17 @@ function mousePressed(){
     // flip the cardinal (NSEW) neighbours
     // If the shift key is down, only one square will change
     if(!keyIsDown(SHIFT) && !!mousePressed){
-      if(x-1 >= 0) flip(x-1, y);
-      if(x-1 >= 0) flip(x+1, y);
-      if(y-1 >= 0) flip(x, y-1);
-      if(y-1 >= 0) flip(x, y+1);
+      if(pattern === 0){
+        if(x-1 >= 0) flip(x-1, y);
+        if(x-1 >= 0) flip(x+1, y);
+        if(y-1 >= 0) flip(x, y-1);
+        if(y-1 >= 0) flip(x, y+1);
+      }
+      if(pattern === 1){
+        if(x-1 >= 0) flip(x-1, y);
+        if(y-1 >= 0) flip(x, y-1);
+        if(y-1 >= 0) flip(x-1, y-1);
+      }
     }
   }
 }
@@ -64,10 +91,9 @@ function win(){
   for(let y = 0; y < rows; y++){ //y:0 1 2 3 4
     for(let x = 0; x < cols; x++){ //x: 0 1 2 3 4 5
       gridColor = gridColor + grid[y][x];
-
     }
   }
-  if(gridColor === 0){
+  if(gridColor === 0 || gridColor/30 === 255){
     textSize(40);
     fill(255, 0, 0);
     text('You Win', 50, 50);
